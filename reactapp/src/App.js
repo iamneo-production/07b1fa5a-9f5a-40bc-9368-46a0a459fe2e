@@ -19,7 +19,7 @@ function App() {
                       path="/"
                       element={ isAuthenticated() ?
                         <Navigate to="/home" /> :
-                        <Navigate to="/signUp" /> }
+                        <Navigate to="/signin" /> }
                     />
             <Route  element={<ProtectedRoutes/>}>
             <Route path="/home" exact element={<Home/>}></Route>
