@@ -1,7 +1,42 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import {api_url} from '../../../helper/Api';
+import axios from 'axios';
 class AddThemes extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            themeName:"",
+            themePrice:"",
+            themeDetails:""
+        }
+        this.submitTheme=this.submitTheme.bind(this);
+    }
+    onChangeThemeData=(event)=>{
+      this.setState({
+          ...this.state,
+          [event.target.name]:event.target.value
+      })
+    }
+    submitTheme=(e)=>{
+        e.preventDefault();
+        axios({
+            method: 'post',
+            headers: { 
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json', 
+                     },
+            url:`${api_url}/admin/addTheme`,
+            data:this.state
+          })
+          .then((response)=>{
+              console.log(response.data);
+              window.location.reload(true);
+          })
+          .catch((err)=>{
+              console.log(err);
+          })
+    }
     render() {
         return (
             <>
@@ -9,15 +44,15 @@ class AddThemes extends Component {
            <div className="card rounded-0 shadow border-0">
             <div className="card-body text-center p-5">
                 <h3 className="mb-3">Add Theme</h3>
-                <form>
+                <form onSubmit={this.submitTheme}>
                 <div className="mb-3">
-                    <input type="text" className="form-control rounded-0" placeholder="Enter name"></input>
+                    <input type="text" onChange={(event)=>this.onChangeThemeData(event)} value={this.state.themeName} name="themeName" className="form-control rounded-0" placeholder="Enter name"></input>
                 </div>
-                <div class="mb-3">
-                    <input type="text" className="form-control rounded-0" placeholder="Enter price"></input>
+                <div className="mb-3">
+                    <input type="number" onChange={(event)=>this.onChangeThemeData(event)} value={this.state.themePrice} name="themePrice" className="form-control rounded-0" placeholder="Enter price"></input>
                 </div>
-                <div class="mb-4">
-                    <textarea type="text" className="form-control rounded-0" placeholder="Enter desciption"></textarea>
+                <div className="mb-4">
+                    <textarea type="text" onChange={(event)=>this.onChangeThemeData(event)} value={this.state.themeDetails} name="themeDetails" className="form-control rounded-0" placeholder="Enter desciption"></textarea>
                 </div>
                 <button type="submit" className="btn btn-primary rounded-0 w-100">Submit</button>
                 </form>
