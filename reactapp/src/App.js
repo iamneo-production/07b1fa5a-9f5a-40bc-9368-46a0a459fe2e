@@ -3,6 +3,7 @@ import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom';
 import Home from './pages/home/index';
 import { isAuthenticated } from './helper/Authentication';
 import Admin from './pages/admin/index';
+import Themes from './pages/admin/Themes/index';
 import SignIn from './pages/signin/index';
 import SignUp from './pages/signup/index';
 import NotFound from './pages/notfound/index';
@@ -25,6 +26,7 @@ function App() {
             <Route path="/home" exact element={<Home/>}></Route>
             <Route path="/admin" exact element={<Admin/>}></Route>
             </Route>
+            <Route path="/admin/theme" exact element={<Themes/>}></Route>
             <Route path="/signup" exact element={<SignUp/>}></Route>
             <Route path="/signin" exact element={<SignIn/>}></Route>
             <Route path="*"  element={<NotFound/>}></Route>
