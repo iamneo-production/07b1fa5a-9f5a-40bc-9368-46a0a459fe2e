@@ -8,7 +8,8 @@ class AddThemes extends Component {
         this.state={
             themeName:"",
             themePrice:"",
-            themeDetails:""
+            themeDetails:"",
+            
         }
         this.submitTheme=this.submitTheme.bind(this);
     }
@@ -20,6 +21,11 @@ class AddThemes extends Component {
     }
     submitTheme=(e)=>{
         e.preventDefault();
+        let addThemeData={
+            themeName:this.state.themeName,
+            themePrice:this.state.themePrice,
+            themeDetails:this.state.themeDetails
+        }
         axios({
             method: 'post',
             headers: { 
@@ -27,7 +33,7 @@ class AddThemes extends Component {
                 'Content-Type': 'application/json', 
                      },
             url:`${api_url}/admin/addTheme`,
-            data:this.state
+            data:addThemeData
           })
           .then((response)=>{
               console.log(response.data);
@@ -37,7 +43,9 @@ class AddThemes extends Component {
               console.log(err);
           })
     }
+    
     render() {
+        
         return (
             <>
            <div className="px-4 pt-2">
@@ -59,6 +67,7 @@ class AddThemes extends Component {
             </div>
             </div>
            </div>
+           
             </>
         );
     }
